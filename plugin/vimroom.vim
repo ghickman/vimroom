@@ -68,6 +68,11 @@ if !exists( "g:vimroom_clear_line_numbers" )
     let g:vimroom_clear_line_numbers = 1
 endif
 
+" Should vimroom create a mapping?  Defaults to `1` (yes).
+if !exists( "g:vimroom_create_mapping" )
+    let g:vimroom_create_mapping = 1
+endif
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Plugin Code
 "
@@ -262,7 +267,9 @@ noremap <silent> <Plug>VimroomToggle    :call <SID>VimroomToggle()<CR>
 " Create a `VimroomToggle` command:
 command -nargs=0 VimroomToggle call <SID>VimroomToggle()
 
-" If no mapping exists, map it to `<Leader>V`.
-if !hasmapto( '<Plug>VimroomToggle' )
-    nmap <silent> <Leader>V <Plug>VimroomToggle
+if g:vimroom_create_mapping
+    " If no mapping exists, map it to `<Leader>V`.
+    if !hasmapto( '<Plug>VimroomToggle' )
+        nmap <silent> <Leader>V <Plug>VimroomToggle
+    endif
 endif
